@@ -1,62 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
+<head>
+    <meta charset="UTF-8">
 
-        <style>
-            table {
-                width: 100%;
-                height: 100%;
-            }
+    <style>
+        #global {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            width: 100%;
+            height: 100%;
+        }
 
-            .textAreaWrapper {
-                width: 100%;
-                height: 80vh;
-            }
+        #codeSubmissionButton {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            padding-left: 12px;
+            padding-right: 12px;
+            text-align: center;
+            background-color: #1c4b7f;
+            color: white;
+        }
 
-            textarea {
-                width: 80%;
-                height: 95%;
-            }
-        </style>
-    </head>
-    <body>
-        <table>
-            <tr>
-                <td>
-                    <div>
-                        <label>Enter code here</label>
-                    </div>
-                </td>
-                <td>
-                    <div>
-                        <label>Parsed code here</label>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="textAreaWrapper">
-                        <textarea id="codePlaceholder" title="Enter code here"></textarea>
-                    </div>
-                </td>
-                <td>
-                    <div class="textAreaWrapper">
-                        <textarea id="parsedCode" title="Parse code"></textarea>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div>
-                        <button id="codeSubmissionButton">Parse code</button>
-                    </div>
-                </td>
-                <td>
-                </td>
-            </tr>
-        </table>
+        #myTable {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 95%;
+        }
 
-        <script src="dist/bundle.js"></script>
-    </body>
+        #myTable td, #myTable th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #myTable tr:nth-child(even){background-color: #f2f2f2;}
+
+        #myTable th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #1c4b7f;
+            color: white;
+        }
+
+        .textAreaWrapper {
+            width: 100%;
+            height: 80vh;
+
+        }
+        p {
+            padding: 8px;
+        }
+
+        textarea {
+            width: 90%;
+            height: 95%;
+        }
+    </style>
+</head>
+<body>
+<table id="global">
+    <tr>
+        <td width="40%">
+            <div>
+                <label>Enter code here</label>
+            </div>
+        </td>
+        <td width="60%">
+            <div>
+                <label>Table here</label>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td width="40%">
+            <div class="textAreaWrapper">
+                <textarea id="codePlaceholder" title="Enter code here"></textarea>
+            </div>
+        </td>
+        <td width="60%">
+            <div class="textAreaWrapper">
+                <table id="myTable">
+                    <tbody id="tbody"></tbody>
+                </table>
+
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="p">
+                <button id="codeSubmissionButton">Create Table</button>
+            </div>
+        </td>
+        <td>
+        </td>
+    </tr>
+</table>
+
+<script src="dist/bundle.js"></script>
+</body>
 </html>
