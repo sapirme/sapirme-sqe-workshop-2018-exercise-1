@@ -63,7 +63,7 @@ describe ('test4', () =>{
         assert.deepEqual(
             createTable('x=1;\ny=(5-x)/2;'),
             [{Line: 1, Type: 'assignment expression', Name: 'x', Condition: null, Value: 1},
-                {Line: 2, Type: 'assignment expression', Name: 'y', Condition: null, Value: '5 - x / 2'}]
+                {Line: 2, Type: 'assignment expression', Name: 'y', Condition: null, Value: '(5 - x) / 2'}]
         );
     });
 });
@@ -109,12 +109,12 @@ describe ('test7', () =>{
     it('is parsing a for expression correctly 2', () => {
         assert.deepEqual(
             createTable('for (let i=0,z; i<20 ; i++)\n x=x+y;'),
-            [{Line: 1, Type: 'for statement', Name: null, Condition: 'let i = 0,z; i < 20; i++', Value: null},
+            [{Line: 1, Type: 'for statement', Name: null, Condition: 'let i = 0, z; i < 20; i++', Value: null},
                 {Line: 2, Type: 'assignment expression', Name: 'x', Condition: null, Value: 'x + y'}]
         );
         assert.deepEqual(
             createTable('for (i=0,z; i<20 ; i++, z=z+1)\n x=x+y;'),
-            [{Line: 1, Type: 'for statement', Name: null, Condition: 'i = 0,z; i < 20; i++,z = z + 1', Value: null},
+            [{Line: 1, Type: 'for statement', Name: null, Condition: 'i = 0, z; i < 20; i++, z = z + 1', Value: null},
                 {Line: 2, Type: 'assignment expression', Name: 'x', Condition: null, Value: 'x + y'}]
         );
     });
@@ -140,13 +140,13 @@ describe ('test9', () => {
         assert.deepEqual(
             createTable('if (x >= 7)\n{\n x=2*x*(x+1);\n }\n else {\n x=3*x;\n}'),
             [{Line: 1, Type: 'if statement', Name: null, Condition: 'x >= 7', Value: null},
-                {Line: 3, Type: 'assignment expression', Name: 'x', Condition: null, Value: '2 * x * x + 1'},
+                {Line: 3, Type: 'assignment expression', Name: 'x', Condition: null, Value: '2 * x * (x + 1)'},
                 {Line: 6, Type: 'assignment expression', Name: 'x', Condition: null, Value: '3 * x'}]
         );
         assert.deepEqual(
             createTable('if (x >= 7)\n{\n x=2*x*(x+1);\n }\n else if (x ==7 ){\n x=3*x;\n}'),
             [{Line: 1, Type: 'if statement', Name: null, Condition: 'x >= 7', Value: null},
-                {Line: 3, Type: 'assignment expression', Name: 'x', Condition: null, Value: '2 * x * x + 1'},
+                {Line: 3, Type: 'assignment expression', Name: 'x', Condition: null, Value: '2 * x * (x + 1)'},
                 {Line: 5, Type: 'else if statement', Name: null, Condition: 'x == 7', Value: null},
                 {Line: 6, Type: 'assignment expression', Name: 'x', Condition: null, Value: '3 * x'}]
         );
@@ -157,14 +157,14 @@ describe ('test10', () => {
     it('is parsing a if else expression correctly 2', () => {
         assert.deepEqual(
             createTable('if (x >= 7)\n{\n x=2*x*(x+1);\n }\n else if (x ==7 ){\n x=3*x;\n}\n else x=3;'),
-            [{Line: 1, Type: 'if statement', Name: null, Condition: 'x >= 7', Value: null}, {Line: 3, Type: 'assignment expression', Name: 'x', Condition: null, Value: '2 * x * x + 1'},
+            [{Line: 1, Type: 'if statement', Name: null, Condition: 'x >= 7', Value: null}, {Line: 3, Type: 'assignment expression', Name: 'x', Condition: null, Value: '2 * x * (x + 1)'},
                 {Line: 5, Type: 'else if statement', Name: null, Condition: 'x == 7', Value: null}, {Line: 6, Type: 'assignment expression', Name: 'x', Condition: null, Value: '3 * x'},
                 {Line: 8, Type: 'assignment expression', Name: 'x', Condition: null, Value: 3}]
         );
         assert.deepEqual(
             createTable('if (x >= 7)\n{\n x=2*x*(x+1);\n }\n else if (x ==7 ){\n x=3*x;\n}\n else if (x==0)\n x=0;'),
             [{Line: 1, Type: 'if statement', Name: null, Condition: 'x >= 7', Value: null},
-                {Line: 3, Type: 'assignment expression', Name: 'x', Condition: null, Value: '2 * x * x + 1'}, {Line: 5, Type: 'else if statement', Name: null, Condition: 'x == 7', Value: null},
+                {Line: 3, Type: 'assignment expression', Name: 'x', Condition: null, Value: '2 * x * (x + 1)'}, {Line: 5, Type: 'else if statement', Name: null, Condition: 'x == 7', Value: null},
                 {Line: 6, Type: 'assignment expression', Name: 'x', Condition: null, Value: '3 * x'}, {Line: 8, Type: 'else if statement', Name: null, Condition: 'x == 0', Value: null},
                 {Line: 9, Type: 'assignment expression', Name: 'x', Condition: null, Value: 0}]
         );
@@ -186,7 +186,7 @@ describe ('test11', () => {
                 {Line: 1, Type: 'variable declaration', Name: 'a', Condition: null, Value: null},
                 {Line: 1, Type: 'variable declaration', Name: 'b', Condition: null, Value: null},
                 {Line: 2, Type: 'variable declaration', Name: 'z', Condition: null, Value: 'a * 2'},
-                {Line: 3, Type: 'return statement', Name: null, Condition: null, Value: 'a + b,z'}]
+                {Line: 3, Type: 'return statement', Name: null, Condition: null, Value: 'a + b, z'}]
         );
     });
 });
@@ -201,7 +201,7 @@ describe ('test12', () => {
                 {Line: 2, Type: 'variable declaration', Name: 'low', Condition: null, Value: null}, {Line: 2, Type: 'variable declaration', Name: 'high', Condition: null, Value: null},
                 {Line: 2, Type: 'variable declaration', Name: 'mid', Condition: null, Value: null}, {Line: 3, Type: 'assignment expression', Name: 'low', Condition: null, Value: 0},
                 {Line: 4, Type: 'assignment expression', Name: 'high', Condition: null, Value: 'n - 1'}, {Line: 5, Type: 'while statement', Name: null, Condition: 'low <= high', Value: null},
-                {Line: 6, Type: 'assignment expression', Name: 'mid', Condition: null, Value: 'low + high / 2'}, {Line: 7, Type: 'if statement', Name: null, Condition: 'X < V[mid]', Value: null},
+                {Line: 6, Type: 'assignment expression', Name: 'mid', Condition: null, Value: '(low + high) / 2'}, {Line: 7, Type: 'if statement', Name: null, Condition: 'X < V[mid]', Value: null},
                 {Line: 8, Type: 'assignment expression', Name: 'high', Condition: null, Value: 'mid - 1'}, {Line: 9, Type: 'else if statement', Name: null, Condition: 'X > V[mid]', Value: null},
                 {Line: 10, Type: 'assignment expression', Name: 'low', Condition: null, Value: 'mid + 1'},
                 {Line: 12, Type: 'return statement', Name: null, Condition: null, Value: 'mid'},
